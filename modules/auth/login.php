@@ -61,8 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+    --primary-color: #c53535;      /* Daha açık kırmızı / bordo */
+    --secondary-color: #4d4d4d;    /* Orta koyulukta gri */
+    --sidebar-width: 250px;
+}
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #c53535 0%, #4d4d4d 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -81,16 +86,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             text-align: center;
             margin-bottom: 2rem;
         }
-        .login-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
+        .login-logo {
+    max-width: 120px;
+    margin-bottom: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
         }
         .btn-login {
             width: 100%;
             padding: 12px;
             font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #c53535 0%, #4d4d4d 100%);
             border: none;
             border-radius: 8px;
         }
@@ -113,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-container">
             <div class="login-card">
                 <div class="login-header">
-                    <i class="fas fa-clipboard-list login-icon"></i>
+                    <img src="<?= url('assets/images/tumosan-logo.png') ?>" alt="Tümosan Logo" class="login-logo">
                     <h3>Zimmet Takip Sistemi</h3>
                     <p class="text-muted">Sisteme giriş yapın</p>
                 </div>

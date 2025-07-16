@@ -355,53 +355,5 @@ try {
     </div>
 </div>
 
-<!-- Hızlı Eylemler -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-bolt"></i> Hızlı Rapor Eylemleri
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="d-grid">
-                            <a href="custom.php" class="btn btn-primary">
-                                <i class="fas fa-cog"></i><br>
-                                <small>Özel Rapor Oluştur</small>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="d-grid">
-                            <a href="exports.php" class="btn btn-success">
-                                <i class="fas fa-file-excel"></i><br>
-                                <small>Excel'e Toplu Aktar</small>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="d-grid">
-                            <a href="analytics.php" class="btn btn-info">
-                                <i class="fas fa-chart-line"></i><br>
-                                <small>Trend Analizi</small>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="d-grid">
-                            <a href="schedules.php" class="btn btn-warning">
-                                <i class="fas fa-clock"></i><br>
-                                <small>Otomatik Raporlar</small>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php require_once '../../includes/footer.php'; ?>

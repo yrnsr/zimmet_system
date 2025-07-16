@@ -35,11 +35,11 @@ $username = $_SESSION['username'];
     
     <style>
         :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
+            --primary-color: #c53535;      /* Daha açık kırmızı / bordo */
+            --secondary-color: #4d4d4d;    /* Orta koyulukta gri */
             --sidebar-width: 250px;
         }
-        
+
         body {
             background-color: #f8f9fa;
         }
@@ -90,7 +90,13 @@ $username = $_SESSION['username'];
             background-color: rgba(255,255,255,0.1);
             padding-left: 30px;
         }
-        
+        .login-logo {
+        max-width: 120px;
+        margin-bottom: 0.5rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        }
         .sidebar-menu i {
             width: 20px;
             margin-right: 10px;
@@ -187,7 +193,7 @@ $username = $_SESSION['username'];
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h4><i class="fas fa-clipboard-list"></i> Zimmet Sistemi</h4>
+            <img src="<?= url('assets/images/tumosan.jpg') ?>" alt="Tümosan Logo" class="login-logo">
         </div>
         
         <ul class="sidebar-menu">
@@ -230,11 +236,6 @@ $username = $_SESSION['username'];
                 </a>
             </li>
             
-            <li>
-                <a href="<?= url('admin/settings.php') ?>" class="<?= isActivePage('settings.php') ?>">
-                    <i class="fas fa-cogs"></i> Sistem Ayarları
-                </a>
-            </li>
             <?php endif; ?>
         </ul>
     </div>
