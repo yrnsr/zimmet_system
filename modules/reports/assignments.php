@@ -232,11 +232,7 @@ function getAssignmentStatusBadgeClass($status) {
         <a href="index.php" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Raporlara Dön
         </a>
-        <?php if (!empty($assignments)): ?>
-            <a href="?<?= http_build_query(array_merge($_GET, ['export' => 'excel'])) ?>" class="btn btn-success">
-                <i class="fas fa-file-excel"></i> Excel'e Aktar
-            </a>
-        <?php endif; ?>
+
     </div>
 </div>
 

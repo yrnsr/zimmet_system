@@ -145,12 +145,6 @@ try {
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-search"></i> Rapor Oluştur
                             </button>
-                            <button type="button" onclick="window.print();" class="btn btn-secondary">
-                                <i class="fas fa-print"></i> Yazdır
-                            </button>
-                            <button type="button" onclick="exportToExcel();" class="btn btn-success">
-                                <i class="fas fa-file-excel"></i> Excel
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -304,20 +298,5 @@ try {
         <?php endif; ?>
     </div>
 </div>
-
-<script>
-function exportToExcel() {
-    // Basit Excel export
-    var table = document.getElementById('personnelTable');
-    var html = table.outerHTML;
-    var url = 'data:application/vnd.ms-excel,' + encodeURIComponent(html);
-    var downloadLink = document.createElement("a");
-    downloadLink.href = url;
-    downloadLink.download = "personel_raporu_<?= date('Y-m-d') ?>.xls";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-}
-</script>
 
 <?php require_once '../../includes/footer.php'; ?>

@@ -1,0 +1,12 @@
+[2025-07-18 11:01:22] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:01:30] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:01:34] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:02:56] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:03:51] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:03:59] [warning] [User: unknown] Failed login attempt: user
+[2025-07-18 11:04:04] [warning] [User: unknown] Failed login attempt: user
+[2025-07-18 11:04:11] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:04:43] [info] [User: 3] User logged in: user
+[2025-07-18 11:05:00] [info] [User: 3] User logged out: user
+[2025-07-18 11:05:06] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-18 11:06:28] [info] [User: 1] User logged in: admin

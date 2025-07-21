@@ -190,6 +190,11 @@ try {
 } catch(Exception $e) {
     // Hata durumunda devam et
 }
+
+// Helper function to safely display values
+function safeDisplay($value) {
+    return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
+}
 ?>
 
 <div class="row justify-content-center">
@@ -207,7 +212,7 @@ try {
                         <h6><i class="fas fa-exclamation-triangle"></i> Aşağıdaki hataları düzeltin:</h6>
                         <ul class="mb-0">
                             <?php foreach ($errors as $error): ?>
-                                <li><?= htmlspecialchars($error) ?></li>
+                                <li><?= safeDisplay($error) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -228,17 +233,18 @@ try {
                             <div class="mb-3">
                                 <label for="item_code" class="form-label">Malzeme Kodu <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="item_code" name="item_code" 
-                                       value="<?= htmlspecialchars($form_data['item_code']) ?>" required>
+                                       value="<?= safeDisplay($form_data['item_code']) ?>" required>
+                            </div>
                             
                             <div class="mb-3">
                                 <label for="name" class="form-label">Malzeme Adı <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="name" name="name" 
-                                       value="<?= htmlspecialchars($form_data['name']) ?>" required>
+                                       value="<?= safeDisplay($form_data['name']) ?>" required>
                             </div>
                             
                             <div class="mb-3">
                                 <label for="description" class="form-label">Açıklama</label>
-                                <textarea class="form-control" id="description" name="description" rows="3"><?= htmlspecialchars($form_data['description']) ?></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3"><?= safeDisplay($form_data['description']) ?></textarea>
                             </div>
                             
                             <div class="mb-3">
@@ -248,7 +254,7 @@ try {
                                     <?php foreach ($categories as $cat): ?>
                                         <option value="<?= $cat['id'] ?>" 
                                                 <?= ($form_data['category_id'] == $cat['id']) ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($cat['name']) ?>
+                                            <?= safeDisplay($cat['name']) ?>
                                         </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -259,14 +265,14 @@ try {
                                     <div class="mb-3">
                                         <label for="brand" class="form-label">Marka</label>
                                         <input type="text" class="form-control" id="brand" name="brand" 
-                                               value="<?= htmlspecialchars($form_data['brand']) ?>">
+                                               value="<?= safeDisplay($form_data['brand']) ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="model" class="form-label">Model</label>
                                         <input type="text" class="form-control" id="model" name="model" 
-                                               value="<?= htmlspecialchars($form_data['model']) ?>">
+                                               value="<?= safeDisplay($form_data['model']) ?>">
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +280,7 @@ try {
                             <div class="mb-3">
                                 <label for="serial_number" class="form-label">Seri Numarası</label>
                                 <input type="text" class="form-control" id="serial_number" name="serial_number" 
-                                       value="<?= htmlspecialchars($form_data['serial_number']) ?>">
+                                       value="<?= safeDisplay($form_data['serial_number']) ?>">
                                 <div class="form-text">Benzersiz seri numarası</div>
                             </div>
                         </div>
@@ -286,14 +292,14 @@ try {
                                     <div class="mb-3">
                                         <label for="purchase_date" class="form-label">Satın Alma Tarihi</label>
                                         <input type="date" class="form-control" id="purchase_date" name="purchase_date" 
-                                               value="<?= $form_data['purchase_date'] ?>">
+                                               value="<?= safeDisplay($form_data['purchase_date']) ?>">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="purchase_price" class="form-label">Satın Alma Fiyatı (₺)</label>
                                         <input type="number" step="0.01" class="form-control" id="purchase_price" name="purchase_price" 
-                                               value="<?= $form_data['purchase_price'] ?>">
+                                               value="<?= safeDisplay($form_data['purchase_price']) ?>">
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +307,7 @@ try {
                             <div class="mb-3">
                                 <label for="warranty_end_date" class="form-label">Garanti Bitiş Tarihi</label>
                                 <input type="date" class="form-control" id="warranty_end_date" name="warranty_end_date" 
-                                       value="<?= $form_data['warranty_end_date'] ?>">
+                                       value="<?= safeDisplay($form_data['warranty_end_date']) ?>">
                             </div>
                             
                             <div class="mb-3">
@@ -333,12 +339,12 @@ try {
                             <div class="mb-3">
                                 <label for="location" class="form-label">Konum</label>
                                 <input type="text" class="form-control" id="location" name="location" 
-                                       value="<?= htmlspecialchars($form_data['location']) ?>">
+                                       value="<?= safeDisplay($form_data['location']) ?>">
                             </div>
                             
                             <div class="mb-3">
                                 <label for="notes" class="form-label">Notlar</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="4"><?= htmlspecialchars($form_data['notes']) ?></textarea>
+                                <textarea class="form-control" id="notes" name="notes" rows="4"><?= safeDisplay($form_data['notes']) ?></textarea>
                             </div>
                         </div>
                     </div>

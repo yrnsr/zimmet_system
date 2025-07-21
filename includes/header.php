@@ -17,6 +17,16 @@ if (!isLoggedIn()) {
 
 $user_role = $_SESSION['user_role'];
 $username = $_SESSION['username'];
+
+// Aktif sayfa kontrolü için geçerli URL'yi al
+$current_url = $_SERVER['REQUEST_URI'];
+$current_path = parse_url($current_url, PHP_URL_PATH);
+
+// Aktif sayfa kontrolü fonksiyonu
+function isActiveMenu($url_pattern) {
+    global $current_path;
+    return strpos($current_path, $url_pattern) !== false ? 'active' : '';
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +45,8 @@ $username = $_SESSION['username'];
     
     <style>
         :root {
-            --primary-color: #c53535;      /* Daha açık kırmızı / bordo */
-            --secondary-color: #4d4d4d;    /* Orta koyulukta gri */
+            --primary-color: #c53535;     
+            --secondary-color: #4d4d4d;
             --sidebar-width: 250px;
         }
 
@@ -83,20 +93,31 @@ $username = $_SESSION['username'];
             color: white;
             text-decoration: none;
             transition: all 0.3s;
+            border-left: 3px solid transparent;
         }
         
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
+        .sidebar-menu a:hover {
             background-color: rgba(255,255,255,0.1);
             padding-left: 30px;
+            color: white;
         }
+        
+        .sidebar-menu a.active {
+            background-color: rgba(255,255,255,0.2);
+            border-left: 3px solid #fff;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
         .login-logo {
-        max-width: 120px;
-        margin-bottom: 0.5rem;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+            max-width: 120px;
+            margin-bottom: 0.5rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
+        
         .sidebar-menu i {
             width: 20px;
             margin-right: 10px;
@@ -198,32 +219,32 @@ $username = $_SESSION['username'];
         
         <ul class="sidebar-menu">
             <li>
-                <a href="<?= url('index.php') ?>" class="<?= isActivePage('index.php') ?>">
+                <a href="<?= url('index.php') ?>" class="<?= isActiveMenu('/index.php') || $current_path === '/' || $current_path === '' ?>">
                     <i class="fas fa-home"></i> Ana Sayfa
                 </a>
             </li>
             
             <li>
-                <a href="<?= url('modules/personnel/index.php') ?>" class="<?= isActivePage('index.php') ?>">
+                <a href="<?= url('modules/personnel/index.php') ?>" class="<?= isActiveMenu('/modules/personnel/') ?>">
                     <i class="fas fa-users"></i> Personel Yönetimi
                 </a>
             </li>
             
             <li>
-                <a href="<?= url('modules/items/index.php') ?>" class="<?= isActivePage('index.php') ?>">
+                <a href="<?= url('modules/items/index.php') ?>" class="<?= isActiveMenu('/modules/items/') ?>">
                     <i class="fas fa-boxes"></i> Stok Yönetimi
                 </a>
             </li>
             
             <li>
-                <a href="<?= url('modules/assignments/index.php') ?>" class="<?= isActivePage('index.php') ?>">
+                <a href="<?= url('modules/assignments/index.php') ?>" class="<?= isActiveMenu('/modules/assignments/') ?>">
                     <i class="fas fa-handshake"></i> Zimmet İşlemleri
                 </a>
             </li>
             
             <?php if (hasPermission('manager')): ?>
             <li>
-                <a href="<?= url('modules/reports/index.php') ?>" class="<?= isActivePage('index.php') ?>">
+                <a href="<?= url('modules/reports/index.php') ?>" class="<?= isActiveMenu('/modules/reports/') ?>">
                     <i class="fas fa-chart-bar"></i> Raporlar
                 </a>
             </li>
@@ -231,11 +252,10 @@ $username = $_SESSION['username'];
             
             <?php if (hasPermission('admin')): ?>
             <li>
-                <a href="<?= url('admin/users.php') ?>" class="<?= isActivePage('users.php') ?>">
+                <a href="<?= url('admin/users.php') ?>" class="<?= isActiveMenu('/admin/') ?>">
                     <i class="fas fa-user-cog"></i> Kullanıcı Yönetimi
                 </a>
             </li>
-            
             <?php endif; ?>
         </ul>
     </div>
@@ -299,3 +319,18 @@ $username = $_SESSION['username'];
                 <?php endif; ?>
             </div>
             <?php endif; ?>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('show');
+}
+
+// Sayfa yüklendiğinde sidebar'ı kapat (mobilde)
+if (window.innerWidth <= 768) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.remove('show');
+    });
+}
+</script>

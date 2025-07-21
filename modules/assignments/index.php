@@ -276,9 +276,6 @@ function getAssignmentStatusBadgeClass($status) {
             <a href="search.php" class="btn btn-info">
                 <i class="fas fa-search"></i> Gelişmiş Arama
             </a>
-            <a href="export.php?<?= http_build_query($_GET) ?>" class="btn btn-secondary">
-                <i class="fas fa-download"></i> Excel'e Aktar
-            </a>
         </div>
         <?php endif; ?>
     </div>

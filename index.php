@@ -234,41 +234,6 @@ try {
                 </div>
             </div>
         </div>
-        
-        <!-- Kategori İstatistikleri -->
-        <div class="card mt-3">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-chart-pie"></i> Kategori İstatistikleri
-                </h5>
-            </div>
-            <div class="card-body">
-                <?php if (empty($category_stats)): ?>
-                    <p class="text-muted">Veri bulunamadı.</p>
-                <?php else: ?>
-                    <?php foreach ($category_stats as $category): ?>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <span class="fw-bold"><?= htmlspecialchars($category['category_name']) ?></span>
-                            <span class="badge bg-primary"><?= $category['total_items'] ?></span>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <small class="text-success">
-                                    <i class="fas fa-check"></i> Müsait: <?= $category['available_items'] ?>
-                                </small>
-                            </div>
-                            <div class="col-6">
-                                <small class="text-warning">
-                                    <i class="fas fa-hand-holding"></i> Zimmetli: <?= $category['assigned_items'] ?>
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -334,5 +299,149 @@ try {
     </div>
 </div>
 <?php endif; ?>
+
+<!-- Kategori İstatistikleri -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-pie"></i> Kategori Bazında Malzeme Dağılımı
+                </h5>
+            </div>
+            <div class="card-body">
+                <?php if (empty($category_stats)): ?>
+                    <div class="text-center text-muted py-4">
+                        <i class="fas fa-tags fa-3x mb-3"></i>
+                        <p>Kategori verisi bulunamadı.</p>
+                    </div>
+                <?php else: ?>
+                    <div class="row">
+                        <?php foreach ($category_stats as $category): ?>
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <div class="card border-0 shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-tag fa-2x text-secondary"></i>
+                                    </div>
+                                    <h6 class="card-title text-secondary fw-bold">
+                                        <?= htmlspecialchars($category['category_name']) ?>
+                                    </h6>
+                                    <div class="row text-center">
+                                        <div class="col-12 mb-2">
+                                            <span class="badge bg-secondary fs-6 px-3 py-2">
+                                                Toplam: <?= $category['total_items'] ?>
+                                            </span>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-success fw-bold">
+                                                <i class="fas fa-check-circle"></i>
+                                                <br>Müsait
+                                                <br><span class="badge bg-success"><?= $category['available_items'] ?></span>
+                                            </small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small class="text-warning fw-bold">
+                                                <i class="fas fa-hand-holding"></i>
+                                                <br>Zimmetli
+                                                <br><span class="badge bg-warning"><?= $category['assigned_items'] ?></span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- İlerleme Çubuğu -->
+                                    <?php if ($category['total_items'] > 0): ?>
+                                    <div class="mt-3">
+                                        <?php 
+                                        $usage_ratio = ($category['assigned_items'] / $category['total_items']) * 100;
+                                        ?>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-warning" role="progressbar" 
+                                                 style="width: <?= $usage_ratio ?>%"
+                                                 title="Kullanım Oranı: <?= number_format($usage_ratio, 1) ?>%">
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">
+                                            Kullanım: <?= number_format($usage_ratio, 1) ?>%
+                                        </small>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    
+                    <!-- Özet Tablo -->
+                    <div class="mt-4">
+                        <h6 class="mb-3">
+                            <i class="fas fa-table"></i> Detaylı Kategori Tablosu
+                        </h6>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Kategori</th>
+                                        <th>Toplam Malzeme</th>
+                                        <th>Müsait</th>
+                                        <th>Zimmetli</th>
+                                        <th>Kullanım Oranı</th>
+                                        <th>Durumu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($category_stats as $category): ?>
+                                    <tr>
+                                        <td>
+                                            <strong class="text-secondary">
+                                                <i class="fas fa-tag"></i>
+                                                <?= htmlspecialchars($category['category_name']) ?>
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary"><?= $category['total_items'] ?></span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"><?= $category['available_items'] ?></span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-warning"><?= $category['assigned_items'] ?></span>
+                                        </td>
+                                        <td>
+                                            <?php 
+                                            $usage_ratio = $category['total_items'] > 0 ? 
+                                                    ($category['assigned_items'] / $category['total_items']) * 100 : 0;
+                                            ?>
+                                            <div class="progress" style="width: 80px;">
+                                                <div class="progress-bar <?= $usage_ratio > 80 ? 'bg-danger' : ($usage_ratio > 60 ? 'bg-warning' : 'bg-success') ?>" 
+                                                     role="progressbar" 
+                                                     style="width: <?= $usage_ratio ?>%"
+                                                     title="<?= number_format($usage_ratio, 1) ?>%">
+                                                </div>
+                                            </div>
+                                            <small><?= number_format($usage_ratio, 1) ?>%</small>
+                                        </td>
+                                        <td>
+                                            <?php if ($usage_ratio > 80): ?>
+                                                <span class="badge bg-danger">Yoğun Kullanım</span>
+                                            <?php elseif ($usage_ratio > 60): ?>
+                                                <span class="badge bg-warning">Orta Kullanım</span>
+                                            <?php elseif ($usage_ratio > 0): ?>
+                                                <span class="badge bg-success">Düşük Kullanım</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary">Kullanılmıyor</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php require_once 'includes/footer.php'; ?>

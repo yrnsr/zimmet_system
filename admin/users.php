@@ -276,18 +276,19 @@ try {
                         <td>
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-sm btn-warning" 
-                                        onclick="openUserModal('edit', <?= htmlspecialchars(json_encode($user)) ?>)">
+                                        data-bs-toggle="modal" data-bs-target="#userModal" 
+                                        onclick="editUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username'], ENT_QUOTES) ?>', '<?= htmlspecialchars($user['email'], ENT_QUOTES) ?>', '<?= $user['role'] ?>', <?= $user['is_active'] ?>)">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 
                                 <button type="button" class="btn btn-sm btn-info" 
-                                        onclick="resetPassword(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>')">
+                                        onclick="resetPassword(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username'], ENT_QUOTES) ?>')">
                                     <i class="fas fa-key"></i>
                                 </button>
                                 
                                 <?php if ($user['id'] != $_SESSION['user_id']): ?>
                                     <button type="button" class="btn btn-sm btn-danger" 
-                                            onclick="deleteUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username']) ?>')">
+                                            onclick="deleteUser(<?= $user['id'] ?>, '<?= htmlspecialchars($user['username'], ENT_QUOTES) ?>')">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 <?php endif; ?>
@@ -366,7 +367,7 @@ try {
 </form>
 
 <script>
-function openUserModal(action, userData = null) {
+function openUserModal(action) {
     const modal = document.getElementById('userModal');
     const title = document.getElementById('userModalTitle');
     const form = document.getElementById('userForm');
@@ -378,25 +379,38 @@ function openUserModal(action, userData = null) {
     // Form temizle
     form.reset();
     
-    if (action === 'add') {
-        title.textContent = 'Yeni Kullanıcı Ekle';
-        actionInput.value = 'add';
-        userIdInput.value = '';
-        passwordInfo.style.display = 'block';
-        submitBtn.textContent = 'Kullanıcı Ekle';
-    } else {
-        title.textContent = 'Kullanıcı Düzenle';
-        actionInput.value = 'edit';
-        userIdInput.value = userData.id;
-        passwordInfo.style.display = 'none';
-        submitBtn.textContent = 'Güncelle';
-        
-        // Formu doldur
-        document.getElementById('username').value = userData.username;
-        document.getElementById('email').value = userData.email;
-        document.getElementById('role').value = userData.role;
-        document.getElementById('is_active').checked = userData.is_active == 1;
-    }
+    title.textContent = 'Yeni Kullanıcı Ekle';
+    actionInput.value = 'add';
+    userIdInput.value = '';
+    passwordInfo.style.display = 'block';
+    submitBtn.textContent = 'Kullanıcı Ekle';
+    
+    // Aktif checkbox'ını işaretle
+    document.getElementById('is_active').checked = true;
+}
+
+function editUser(id, username, email, role, isActive) {
+    const title = document.getElementById('userModalTitle');
+    const form = document.getElementById('userForm');
+    const actionInput = document.getElementById('userAction');
+    const userIdInput = document.getElementById('userId');
+    const passwordInfo = document.getElementById('passwordInfo');
+    const submitBtn = document.getElementById('userSubmitBtn');
+    
+    // Form temizle
+    form.reset();
+    
+    title.textContent = 'Kullanıcı Düzenle';
+    actionInput.value = 'edit';
+    userIdInput.value = id;
+    passwordInfo.style.display = 'none';
+    submitBtn.textContent = 'Güncelle';
+    
+    // Formu doldur
+    document.getElementById('username').value = username;
+    document.getElementById('email').value = email;
+    document.getElementById('role').value = role;
+    document.getElementById('is_active').checked = isActive == 1;
 }
 
 function deleteUser(userId, username) {

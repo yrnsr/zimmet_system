@@ -141,21 +141,6 @@ try {
     // Hücreye ekle
     $sheet->getCell('A10')->setValue($richText);
     
-    // Ek bilgiler (eğer hücreler varsa)
-    try {
-        // Zimmet numarası
-        $sheet->setCellValue('A1', 'Zimmet No: ' . $data['ZimmetNo']);
-        
-        // Zimmet veren bilgisi
-        $sheet->setCellValue('A40', 'Zimmet Veren: ' . $data['ZimmetVeren']);
-        
-        // Tarih bilgisi
-        $sheet->setCellValue('A41', 'Tarih: ' . $data['ZimmetTarihi']);
-        
-    } catch(Exception $e) {
-        // Hücreler yoksa devam et
-    }
-    
     // Dosya adı oluştur
     $fileName = 'Zimmet_Tutanagi_' . $data['ZimmetNo'] . '_' . date('Ymd_His') . '.xlsx';
     
