@@ -245,7 +245,8 @@ try {
                             
                             <div class="mb-3">
                                 <label for="address" class="form-label">Adres</label>
-                                <textarea class="form-control" id="address" name="address" rows="3"><?= htmlspecialchars($form_data['address']) ?></textarea>
+                                <textarea class="form-control" id="address" name="address" rows="3"><?= htmlspecialchars($form_data['address'] ?? '') ?></textarea>
+
                             </div>
                             
                             <div class="mb-3">

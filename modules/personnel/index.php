@@ -143,9 +143,12 @@ try {
         </div>
         
         <?php if (hasPermission('manager')): ?>
-        <div>
+        <div class="btn-group" role="group">
             <a href="add.php" class="btn btn-success">
                 <i class="fas fa-plus"></i> Yeni Personel
+            </a>
+            <a href="bulk_import.php" class="btn btn-primary">
+                <i class="fas fa-upload"></i> Toplu Ekle
             </a>
         </div>
         <?php endif; ?>
@@ -158,9 +161,14 @@ try {
                 <h5 class="text-muted">Personel bulunamadı</h5>
                 <p class="text-muted">Arama kriterlerinizi değiştirin veya yeni personel ekleyin.</p>
                 <?php if (hasPermission('manager')): ?>
-                    <a href="add.php" class="btn btn-primary">
-                        <i class="fas fa-plus"></i> İlk Personeli Ekle
-                    </a>
+                    <div class="btn-group" role="group">
+                        <a href="add.php" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> İlk Personeli Ekle
+                        </a>
+                        <a href="bulk_import.php" class="btn btn-success">
+                            <i class="fas fa-upload"></i> Toplu Personel Ekle
+                        </a>
+                    </div>
                 <?php endif; ?>
             </div>
         <?php else: ?>
@@ -299,5 +307,48 @@ try {
         <?php endif; ?>
     </div>
 </div>
+
+<script>
+// Yazdırma fonksiyonu
+function printPersonnelList() {
+    const params = new URLSearchParams(window.location.search);
+    params.set('print', '1');
+    window.open('index.php?' + params.toString(), '_blank');
+}
+
+// Onay dialog fonksiyonu
+function confirmDelete(message) {
+    return confirm(message);
+}
+
+// Sayfa yüklendiğinde
+document.addEventListener('DOMContentLoaded', function() {
+    // URL'de print parametresi varsa yazdırma görünümü göster
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('print') === '1') {
+        // Yazdırma stillerini ekle
+        const printStyles = `
+            <style media="print">
+                body { font-size: 12px; }
+                .no-print { display: none !important; }
+                .card { border: none; box-shadow: none; }
+                .table { font-size: 11px; }
+                .btn-group { display: none; }
+                @page { margin: 1cm; }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', printStyles);
+        
+        // Filtre kartını gizle
+        document.querySelector('.card:first-child').classList.add('no-print');
+        
+        // Otomatik yazdır
+        setTimeout(() => {
+            window.print();
+            window.close();
+        }, 500);
+    }
+});
+</script>
 
 <?php require_once '../../includes/footer.php'; ?>

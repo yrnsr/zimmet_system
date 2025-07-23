@@ -61,13 +61,22 @@ function generateUniqueCode($prefix = '', $length = 6) {
     return $prefix . $numbers;
 }
 
-// Tarih formatı
-function formatDate($date, $format = 'd.m.Y') {
-    if (empty($date) || $date == '0000-00-00') {
-        return '-';
+if (!function_exists('formatDate')) {
+    function formatDate($date, $format = 'd.m.Y') {
+        if (empty($date) || $date == '0000-00-00') {
+            return '-';
+        }
+        return date($format, strtotime($date));
     }
-    return date($format, strtotime($date));
 }
+// logActivity Fonksiyonu
+function logActivity($user_id, $action) {
+    global $db;  // $db PDO bağlantısı global olmalı
+
+    $stmt = $db->prepare("INSERT INTO logs (user_id, action, created_at) VALUES (?, ?, NOW())");
+    $stmt->execute([$user_id, $action]);
+}
+
 
 // Türkçe tarih formatı
 function formatDateTurkish($date) {

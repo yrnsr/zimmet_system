@@ -1,0 +1,9 @@
+[2025-07-23 05:04:32] [warning] [User: unknown] Failed login attempt: admin
+[2025-07-23 05:04:37] [info] [User: 1] User logged in: admin
+[2025-07-23 06:42:52] [info] [User: 1] User logged out: admin
+[2025-07-23 06:45:42] [info] [User: 1] User logged in: admin
+[2025-07-23 06:48:45] [info] [User: 1] User logged out: admin
+[2025-07-23 06:48:51] [info] [User: 2] User logged in: manager
+[2025-07-23 06:55:08] [info] [User: 2] User logged out: manager
+[2025-07-23 06:55:14] [info] [User: 1] User logged in: admin
+[2025-07-23 07:04:21] [info] [User: 1] User logged in: admin
